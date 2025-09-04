@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="om">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ergaa Jaalalaa ❤️ - Muktar</title>
+    <style>
+      /* ----- Global Styles ----- */
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+        scroll-behavior: smooth;
+        position: relative;
+        padding-top: 70px; /* for nav */
+      }
+      .container {
+        max-width: 480px;
+        margin: auto;
+        padding: 1rem;
+      }
+      .text-center {
+        text-align: center;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0.5rem 0;
+      }
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ff4d6d, #ff7eb3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      h3 {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+      p {
+        color: #555;
+        line-height: 1.5;
+      }
+
+      /* ----- Navigation ----- */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        z-index: 50;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      nav ul {
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        list-style: none;
+        margin: 0;
+      }
+      nav ul li a {
+        text-decoration: none;
+        font-weight: 500;
+        color: #ff4d6d;
+        transition: all 0.3s;
+      }
+      nav ul li a:hover {
+        color: #ff7eb3;
+        transform: scale(1.05);
+      }
+
+      /* ----- Cards ----- */
+      .card {
+        background: linear-gradient(145deg, #fff, #fff0f5);
+        border-radius: 1.5rem;
+        box-shadow: 0 15px 35px rgba(255, 105, 180, 0.15);
+        padding: 1.5rem;
+        margin: 1rem 0;
+        transition: all 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(255, 105, 180, 0.25);
+      }
+
+      /* ----- Buttons ----- */
+      button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 999px;
+        color: #fff;
+        background: linear-gradient(to right, #ff4d6d, #ff7eb3);
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      button:hover {
+        transform: scale(1.05);
+      }
+
+      /* ----- Textarea ----- */
+      textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #ffb6c1;
+        border-radius: 1rem;
+        outline: none;
+        font-size: 1rem;
+        resize: none;
+      }
+
+      /* ----- Profile Image ----- */
+      .profile-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid #ff4d6d;
+        display: block;
+        margin: 1rem auto;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+      }
+      .profile-img:hover {
+        transform: scale(1.05);
+      }
+
+      /* ----- Hearts Animation ----- */
+      .heart {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: linear-gradient(45deg, #ff4d6d, #ff7eb3);
+        transform: rotate(45deg);
+        border-radius: 4px;
+        opacity: 0.8;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .heart::before,
+      .heart::after {
+        content: "";
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: linear-gradient(45deg, #ff4d6d, #ff7eb3);
+        border-radius: 50%;
+      }
+      .heart::before {
+        top: -7px;
+        left: 0;
+      }
+      .heart::after {
+        left: -7px;
+        top: 0;
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(45deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-600px) rotate(45deg);
+          opacity: 0;
+        }
+      }
+
+      /* ----- Secret Message ----- */
+      #secret-message {
+        display: none;
+        font-size: 1.25rem;
+        font-weight: bold;
+        background: linear-gradient(135deg, #ff4d6d, #ff7eb3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        margin-top: 1rem;
+      }
+      .foot {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-top: 1rem;
+      }
+      .foot .image {
+        flex: 1;
+        text-align: center;
+      }
+      .foot .image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+      .foot .image:hover {
+        transform: scale(1.05);
+      }
+      .foot .image img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+      .foot-title {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top: 2rem;
+        color: #ff4d6d;
+      }
+      /* ----- Flower Love Card ----- */
+      .flower-love-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+        padding: 1.5rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(255, 0, 128, 0.2);
+        text-align: center;
+        transition: transform 0.4s, box-shadow 0.4s;
+        max-width: 300px;
+        margin: 2rem auto;
+        justify-content: center;
+      }
+
+      .flower-love-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(255, 0, 128, 0.4);
+      }
+
+      .flower-love-card .flower-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        margin-bottom: 1rem;
+        transition: transform 0.4s;
+      }
+
+      .flower-love-card:hover .flower-image img {
+        transform: rotate(-3deg) scale(1.05);
+      }
+
+      .flower-love-card .love-text h2 {
+        font-size: 1.5rem;
+        color: #ff4d94;
+        margin-bottom: 0.5rem;
+      }
+
+      .flower-love-card .love-text p {
+        font-size: 1rem;
+        color: #ff1a75;
+      }
+      .music-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #fff;
+        padding: 1rem;
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s, box-shadow 0.3s;
+        max-width: 250px;
+        margin: 2rem auto;
+        text-align: center;
+      }
+
+      .music-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+      }
+
+      .music-card .music-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+        margin-bottom: 0.8rem;
+      }
+
+      .music-card .song-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+      }
+
+      .music-card .artist-name {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 0.5rem;
+      }
+
+      .music-card audio {
+        width: 100%;
+        outline: none;
+      }
+      .song-title {
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 0.3rem;
+      }
+
+      .artist-name {
+        font-size: 0.9rem;
+        color: #777;
+        margin-bottom: 0.5rem;
+      }
+
+      /* ----- Footer ----- */
+      footer {
+        text-align: center;
+        padding: 1rem;
+        background: #f5f5f5;
+        font-size: 0.8rem;
+        color: #555;
+      }
+      footer img {
+        width: 50px;
+        height: auto;
+        border-radius: 50%;
+        margin-bottom: 0.5rem;
+      }
+
+      /* ----- Responsive ----- */
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 2rem;
+        }
+        h2 {
+          font-size: 1.3rem;
+        }
+        h3 {
+          font-size: 1.1rem;
+        }
+        .foot {
+          flex-direction: column;
+        }
+        .foot .image {
+          margin-bottom: 1rem;
+        }
+        .foot .image img {
+          width: 100%;
+          height: auto;
+        }
+        .foot .image img:hover {
+          transform: scale(1.05);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="heartsContainer"></div>
+
+    <!-- Navigation -->
+    <nav>
+      <ul>
+        <li><a href="#profile">Ana</a></li>
+        <li><a href="#memories">Yaadannoo</a></li>
+        <li><a href="#regret">Gadda</a></li>
+        <li><a href="#quotes">Jecha Jaalalaa</a></li>
+        <li><a href="#promises">Waadaa</a></li>
+        <li><a href="#message">Ergaa</a></li>
+      </ul>
+    </nav>
+
+    <audio id="loveSong" loop>
+      <source
+        src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"
+        type="audio/mp3"
+      />
+    </audio>
+
+    <div class="container">
+      <!-- Profile -->
+      <div id="profile" class="text-center">
+        <img src="sakina.png" class="profile-img" alt="Profile" />
+        <h2>sakiina</h2>
+        <p>👨‍💻 Muktar | 💞 Jaalallee</p>
+      </div>
+
+      <!-- Header -->
+      <div class="text-center">
+        <h1>Ergaa Jaalalaa ❤️</h1>
+        <p>onne koo siif qopheesse, jaalallee koo</p>
+      </div>
+
+      <!-- Memories -->
+      <div id="memories" class="card">
+        <h2>📸 Yaadannoo Keenya</h2>
+        <p>
+          Yeroo si waliin dabarsu kamuu fakkaata akka abjuu bareedaa fi boqonnaa
+          jireenya koo keessaa isa guddaa ta'e.
+        </p>
+      </div>
+
+      <!-- Regret & Love -->
+      <div id="regret" class="card">
+        <h2>💔 Gadda fi Jaalala</h2>
+        <p>
+          Ani ni gadda, sababni isaas waggaa sadii guutuu jaalallee koo kana
+          dhabe...
+        </p>
+        <p>
+          Waggaa sadii keessatti, yaadannoo kee hunda nan yaadadha; gammachuu fi
+          boqonnaa waliin dabarsine hunda garaa koo keessatti tiksadha...
+        </p>
+        <p>
+          Amma, ani abdii qaba; yeroo tokko gara keetti deebi’uuf, si argachuuf,
+          si jaalachuuf qophii koo guutuu qaba...
+        </p>
+      </div>
+
+      <!-- Quotes -->
+      <div id="quotes" class="card">
+        <h2>💌 Jecha Jaalalaa</h2>
+        <p>"Jaalala dhugaa keessa gammachuu fi boqonnaa arganna." 🌹</p>
+        <p>"Siin jiraachuun koo boqonnaa fi gammachuu koo guutuu dha." 💖</p>
+      </div>
+
+      <!-- Promises -->
+      <div id="promises" class="card">
+        <h2>🌟 Waadaa Fuula</h2>
+        <p>
+          Ani si jaaladha bara-baraan, si tiksuuf, si cimsuuf fi gammachuu kee
+          guutuuf waadaa galeera. 💕
+        </p>
+      </div>
+
+      <!-- Secret Message -->
+      <div class="text-center">
+        <button onclick="showSecretMessage()">
+          💕 Tuqii → tuqii sagale kanaa 💕
+        </button>
+        <div id="secret-message">
+          💌 Jaalallee koo, onnee koo guutuu siif kenneera. Ani si jaaladha
+          bara-baraan ❤️
+        </div>
+      </div>
+      <!-- ---footoo keessatti  fayyadami--- -->
+      <h3 class="foot-title">foot kee</h3>
+      <div class="foot">
+        <div class="image">
+          <img src="sake.png" alt="foot2" style="height: 280px" />
+        </div>
+        <div class="image">
+          <img src="sakin.png" alt="foot3" style="height: 280px" />
+        </div>
+        <div class="image">
+          <img src="sakina.png" alt="foot1" />
+        </div>
+      </div>
+      <!-- Message Box -->
+      <div id="message" class="card">
+        <h2>📩 Barreessi Ergaa Kee Asitti</h2>
+        <textarea
+          id="messageBox"
+          rows="4"
+          placeholder="Ergaa kee asii barreessi..."
+        ></textarea>
+        <button onclick="sendMessage()">💌 Ergaa Ergi</button>
+        <p id="showMessage"></p>
+      </div>
+    </div>
+    <div class="flower-love-card">
+      <div class="flower-image">
+        <img src="flower.png" alt="Beautiful Flower" />
+      </div>
+      <div class="love-text">
+        <h2>kennaa koo</h2>
+        <p>
+          Akkuma abaabo kanaa, jaalalli koo siif guyyaa guyyaatti guddataa
+          adeema ❤️
+        </p>
+      </div>
+    </div>
+    <div class="music-card">
+      <div class="music-image"><img src="loveim.png" alt="Song Cover" /></div>
+      <div class="music-info">
+        <h3 class="song-title">affeerraa koo</h3>
+        <p class="artist-name">koo</p>
+        <audio controls>
+          <source src="lov1.mp4" type="audio/mpeg" />
+          <source src="lov2.mp4" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+        <audio controls>
+          <source src="lov2.mp4" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+
+    <footer>
+      <img src="muktar.png" alt=" muktar" />
+      <p>© 2024 Muktar Abdulkader. ergaa jaalaa.</p>
+    </footer>
+
+    <script>
+      function showSecretMessage() {
+        document.getElementById("secret-message").style.display = "block";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("loveSong").play();
+      }
+
+      function sendMessage() {
+        const msg = document.getElementById("messageBox").value;
+        if (msg.trim() === "") {
+          document.getElementById("showMessage").innerText =
+            "❗ Mee ergaa barreessi dura.";
+        } else {
+          document.getElementById("showMessage").innerText =
+            '💖 Ergaa kee galateeffadhe: "' + msg + '"';
+          document.getElementById("messageBox").value = "";
+        }
+      }
+
+      // Floating hearts
+      function createHearts() {
+        const container = document.getElementById("heartsContainer");
+        setInterval(() => {
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.style.left = Math.random() * window.innerWidth + "px";
+          heart.style.width = 10 + Math.random() * 15 + "px";
+          heart.style.height = 10 + Math.random() * 15 + "px";
+          heart.style.animation = `float ${
+            3 + Math.random() * 3
+          }s linear forwards`;
+          container.appendChild(heart);
+          setTimeout(() => heart.remove(), 6000);
+        }, 400);
+      }
+      createHearts();
+    </script>
+  </body>
+</html>
