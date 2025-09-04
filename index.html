@@ -313,6 +313,33 @@
         color: #777;
         margin-bottom: 0.5rem;
       }
+      .toggle-menu {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #1a202c;
+        background: none;
+        border: none;
+        outline: none;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        z-index: 1002;
+      }
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: none;
+
+        transition: opacity 0.3s ease-in-out;
+      }
 
       /* ----- Footer ----- */
       footer {
@@ -328,39 +355,98 @@
         border-radius: 50%;
         margin-bottom: 0.5rem;
       }
+      /* Toggle Button */
+      .toggle-menu {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #1a202c;
+        background: none;
+        border: none;
+        outline: none;
+        padding: 8px;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1002;
+      }
 
-      /* ----- Responsive ----- */
-      @media (max-width: 480px) {
-        h1 {
-          font-size: 2rem;
-        }
-        h2 {
-          font-size: 1.3rem;
-        }
-        h3 {
-          font-size: 1.1rem;
+      /* Overlay */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: none;
+      }
+
+      /* Mobile Navigation */
+      @media (max-width: 780px) {
+        .toggle-menu {
+          display: block;
         }
         .foot {
           flex-direction: column;
         }
-        .foot .image {
-          margin-bottom: 1rem;
+
+        #navbar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 70%;
+          height: 100%;
+          background: #ffffff;
+          /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); */
+          transform: translateX(-100%);
+          transition: transform 0.3s ease;
+          z-index: 1001;
+          padding-top: 60px;
         }
-        .foot .image img {
-          width: 100%;
-          height: auto;
+
+        #navbar.nav-active {
+          transform: translateX(0);
         }
-        .foot .image img:hover {
-          transform: scale(1.05);
+
+        #navbar ul {
+          display: flex;
+          flex-direction: column;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        #navbar ul li {
+          margin: 1.5rem 0;
+          text-align: center;
+        }
+
+        #navbar ul li a {
+          text-decoration: none;
+          color: #ff1a75;
+          font-size: 1.2rem;
+          transition: color 0.3s;
+        }
+
+        #navbar ul li a:hover {
+          color: #ff4d94;
+        }
+
+        #overlay.active {
+          display: block;
         }
       }
     </style>
   </head>
   <body>
     <div id="heartsContainer"></div>
+    <!-- Toggle Button -->
+    <button id="toggle" class="toggle-menu">&#9776;</button>
 
     <!-- Navigation -->
-    <nav>
+    <nav id="navbar">
       <ul>
         <li><a href="#profile">Ana</a></li>
         <li><a href="#memories">Yaadannoo</a></li>
@@ -370,6 +456,7 @@
         <li><a href="#message">Ergaa</a></li>
       </ul>
     </nav>
+    <button id="overlay" class="overlay"></button>
 
     <audio id="loveSong" loop>
       <source
@@ -538,6 +625,35 @@
           setTimeout(() => heart.remove(), 6000);
         }, 400);
       }
+      const toggle = document.getElementById("toggle");
+      const navbar = document.getElementById("navbar");
+      const overlay = document.querySelector(".overlay");
+
+      toggle.addEventListener("click", () => {
+        navbar.classList.toggle("nav-active");
+        overlay.classList.toggle("active");
+      });
+
+      overlay.addEventListener("click", () => {
+        navbar.classList.remove("nav-active");
+        overlay.classList.remove("active");
+      });
+      const menuE = document.querySelectorAll("a");
+      menuE.forEach(function (menuE) {
+        menuE.addEventListener("click", function () {
+          if (menuE.getAttribute("href") !== "#") {
+            const menuEId = menuE.getAttribute("href").substring(1);
+            const menuEEl = document.getElementById(menuEId);
+            menuEEl.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+              inline: "nearest",
+            });
+            navbar.classList.remove("nav-active");
+            overlay.classList.remove("active");
+          }
+        });
+      });
       createHearts();
     </script>
   </body>
